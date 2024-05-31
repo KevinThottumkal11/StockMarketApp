@@ -2,7 +2,9 @@ package com.plcoding.stockmarketapp.di
 
 import com.plcoding.stockmarketapp.data.csv.CSVParser
 import com.plcoding.stockmarketapp.data.csv.CompanyListingsParser
+import com.plcoding.stockmarketapp.data.repository.StockRepositoryImplement
 import com.plcoding.stockmarketapp.domain.model.CompanyListing
+import com.plcoding.stockmarketapp.domain.repository.StockRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,4 +21,11 @@ abstract class RepositoryModule {
     abstract fun bindCompanyListingsParser (
         companyListingsParser: CompanyListingsParser
     ): CSVParser<CompanyListing>
+
+    // for the StockRepository dependency injection into theCompanyListingsViewModel
+    @Binds
+    @Singleton
+    abstract fun bindStockRepository(
+        stockRepositoryImplement: StockRepositoryImplement
+    ): StockRepository
 }
