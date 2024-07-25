@@ -7,6 +7,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.asAndroidPath
+import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
@@ -72,6 +74,7 @@ fun StockChart(
         }
 
         // actual graph lines
+        var lastX = 0f
         val strokePath = Path().apply {
             val height = size.height
             for (i in infos.indices) {
@@ -90,12 +93,21 @@ fun StockChart(
                 if (i == 0) {
                     moveTo(x1, y1)
                 }
-
+                lastX = (x1 + x2) / 2f
                 // for smooth lines
                 quadraticBezierTo(
-                    x1, y1, (x1 + x2) / 2f, (y1 + y2) / 2f
+                    x1, y1, lastX, (y1 + y2) / 2f
                 )
             }
         }
+
+        // the graph gradient
+        val fillPath = android.graphics.Path(strokePath.asAndroidPath())
+            .asComposePath()
+            .apply {
+                lineTo(lastX, size.height - spacing)
+                lineTo(spacing, size.height - spacing)
+                close()
+            }
     }
 }
