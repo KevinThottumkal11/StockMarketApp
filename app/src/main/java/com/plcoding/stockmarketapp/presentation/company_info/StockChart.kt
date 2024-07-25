@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.sp
@@ -66,6 +67,33 @@ fun StockChart(
                     30f,
                     size.height - spacing - i * size.height / 5f,
                     textPaint
+                )
+            }
+        }
+
+        // actual graph lines
+        val strokePath = Path().apply {
+            val height = size.height
+            for (i in infos.indices) {
+                val info = infos[i]
+                val nextInfo = infos.getOrNull(i + 1) ?: infos.last()
+
+                val leftRatio = (info.close - lowerValue) / (upperValue - lowerValue)
+                val rightRatio = (nextInfo.close - lowerValue) / (upperValue - lowerValue)
+
+                // first coordinates
+                val x1 = spacing + i * spacePerHour
+                val y1 = height - spacing - (leftRatio * height).toFloat()
+
+                val x2 = spacing + (i + 1) * spacePerHour
+                val y2 = height - spacing - (rightRatio * height).toFloat()
+                if (i == 0) {
+                    moveTo(x1, y1)
+                }
+
+                // for smooth lines
+                quadraticBezierTo(
+                    x1, y1, (x1 + x2) / 2f, (y1 + y2) / 2f
                 )
             }
         }
