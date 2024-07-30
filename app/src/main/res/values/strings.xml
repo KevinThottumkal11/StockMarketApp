@@ -3,6 +3,7 @@
 
     <!-- Company Info Screen -->
     <string name="market_summary">Market Summary</string>
+    <string name="back_to_main_menu">Back to Main Menu</string>
 
     <!-- Company Listings Screen -->
     <string name="search">Search</string>

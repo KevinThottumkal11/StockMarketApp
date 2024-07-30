@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -25,10 +26,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.plcoding.stockmarketapp.R
 import com.plcoding.stockmarketapp.ui.theme.DarkBlue
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination
 fun CompanyInfoScreen(
+    navigator: DestinationsNavigator,
     symbol: String,
     viewModel: CompanyInfoViewModel = hiltViewModel()
 ) {
@@ -90,6 +93,16 @@ fun CompanyInfoScreen(
                             .height(250.dp)
                             .align(Alignment.CenterHorizontally)
                     )
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Button(
+                    onClick = { navigator.popBackStack() },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+
+                ) {
+                    Text(stringResource(id = R.string.back_to_main_menu))
                 }
             }
         }
