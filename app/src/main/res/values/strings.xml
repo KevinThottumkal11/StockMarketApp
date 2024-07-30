@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">StockMarketApp</string>
+
+    <!-- Company Info Screen -->
+    <string name="market_summary">Market Summary</string>
+
+    <!-- Company Listings Screen -->
+    <string name="search">Search</string>
 </resources>
