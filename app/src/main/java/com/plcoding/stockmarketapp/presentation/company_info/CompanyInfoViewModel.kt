@@ -9,11 +9,13 @@ import androidx.lifecycle.viewModelScope
 import com.plcoding.stockmarketapp.domain.model.IntradayInfo
 import com.plcoding.stockmarketapp.domain.repository.StockRepository
 import com.plcoding.stockmarketapp.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CompanyInfoViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle, // to access navigation in the viewModel without passing from UI
     private val repository: StockRepository
